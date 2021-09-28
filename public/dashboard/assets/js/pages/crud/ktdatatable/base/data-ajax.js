@@ -1,6 +1,5 @@
 "use strict";
 // Class definition
-
 var KTDatatableRemoteAjaxDemo = function() {
     // Private functions
 

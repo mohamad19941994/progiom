@@ -15,16 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /*DB::table('users')->insert([
-            'name' => 'Progiom',
-            'email' => 'admin@progiom.com',
-            'password' => Hash::make('password@'),
-        ]);*/
-
         $this->call(LaratrustSeeder::class);
-
-        $this->call([
-            UserSedder::class ,
-        ]);
+        $this->call(UserSedder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(MatchSeeder::class);
     }
 }

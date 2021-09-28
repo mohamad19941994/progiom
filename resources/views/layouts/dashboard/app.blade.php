@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    {{--noty--}}
+    <link rel="stylesheet" href="{{asset('dashboard/assets/plugins/custom/noty/noty.css')}}">
+    <script src="{{ asset('dashboard/assets/plugins/custom/noty/noty.min.js') }}"></script>
     <!--end::Fonts-->
     <style>
         body,h1,h2,h3,h4,h5,h6{
@@ -1303,38 +1306,7 @@
 			</span>
 </div>
 <!--end::Scrolltop-->
-<!--begin::Sticky Toolbar-->
-<ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
-    <!--begin::Item-->
-    <li class="nav-item mb-2" id="kt_demo_panel_toggle" data-toggle="tooltip" title="Check out more demos" data-placement="right">
-        <a class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-success" href="#">
-            <i class="flaticon2-drop"></i>
-        </a>
-    </li>
-    <!--end::Item-->
-    <!--begin::Item-->
-    <li class="nav-item mb-2" data-toggle="tooltip" title="Layout Builder" data-placement="left">
-        <a class="btn btn-sm btn-icon btn-bg-light btn-icon-primary btn-hover-primary" href="https://preview.keenthemes.com/metronic/demo1/builder.html" target="_blank">
-            <i class="flaticon2-gear"></i>
-        </a>
-    </li>
-    <!--end::Item-->
-    <!--begin::Item-->
-    <li class="nav-item mb-2" data-toggle="tooltip" title="Documentation" data-placement="left">
-        <a class="btn btn-sm btn-icon btn-bg-light btn-icon-warning btn-hover-warning" href="https://keenthemes.com/metronic/?page=docs" target="_blank">
-            <i class="flaticon2-telegram-logo"></i>
-        </a>
-    </li>
-    <!--end::Item-->
-    <!--begin::Item-->
-    <li class="nav-item" id="kt_sticky_toolbar_chat_toggler" data-toggle="tooltip" title="Chat Example" data-placement="left">
-        <a class="btn btn-sm btn-icon btn-bg-light btn-icon-danger btn-hover-danger" href="#" data-toggle="modal" data-target="#kt_chat_modal">
-            <i class="flaticon2-chat-1"></i>
-        </a>
-    </li>
-    <!--end::Item-->
-</ul>
-<!--end::Sticky Toolbar-->
+
 <!--begin::Demo Panel-->
 <div id="kt_demo_panel" class="offcanvas offcanvas-right p-10">
     <!--begin::Header-->
@@ -1651,7 +1623,7 @@
 <script src="{{asset('dashboard/assets/plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('dashboard/assets/plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
 <script src="{{asset('dashboard/assets/js/scripts.bundle.js')}}"></script>
-<script src="https://keenthemes.com/metronic/assets/js/engage_code.js"></script>
+<!--<script src="https://keenthemes.com/metronic/assets/js/engage_code.js"></script>-->
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(used by this page)-->
 <script src="{{asset('dashboard/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
@@ -1659,6 +1631,7 @@
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{asset('dashboard/assets/js/pages/widgets.js')}}"></script>
 <!--end::Page Scripts-->
+@yield('scripts')
 </body>
 <!--end::Body-->
 </html>

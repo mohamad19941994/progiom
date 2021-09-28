@@ -16,21 +16,12 @@ class UserSedder extends Seeder
      */
     public function run()
     {
-        $super_admin = \App\Models\User::create([
-            'name' => 'Progiom',
-            'email' => 'admin@progiom.com',
-            'password' => Hash::make('password@'),
+        $user = \App\Models\User::create([
+            'name' => 'super admin',
+            'email' => 'mhmtslahyt68@gmail.com',
+            'password' => bcrypt('mo12341234'),
+
         ]);
-        
-        $super_admin->attachRole('super_admin');
-        
-        for ($i=1; $i<=20; $i++) {
-           $user =  DB::table('users')->insert([
-                'name' => 'Test User ' . $i,
-                'email' => 'test' . $i . '@test.com',
-                'password' => Hash::make('12345678'),
-            ]);
-            
-        }
+        $user->attachRole('super_admin');
     }
 }

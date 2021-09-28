@@ -9,7 +9,7 @@
                 <ul class="menu-nav">
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here menu-item-active" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Pages</span>
+                            <span class="menu-text">@lang('site.show_website')</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -209,7 +209,7 @@
                 <!--begin::Toggle-->
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                     <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-                        <img class="h-20px w-20px rounded-sm" src="{{(app()->getLocale() == 'ar') ? asset('dashboard/assets/media/svg/flags/022-syria.svg') : asset('dashboard/assets/media/svg/flags/226-united-states.svg')}}" alt="" />
+                        <img class="h-20px w-20px rounded-sm" src="{{(app()->getLocale() == 'ar') ? asset('dashboard/assets/media/svg/flags/020-iraq.svg') : asset('dashboard/assets/media/svg/flags/226-united-states.svg')}}" alt="" />
                     </div>
                 </div>
                 <!--end::Toggle-->
@@ -223,7 +223,7 @@
                             <li class="navi-item active">
                                 <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="navi-link">
 													<span class="symbol symbol-20 mr-3">
-														<img src="{{(app()->getLocale() == 'ar') ? asset('dashboard/assets/media/svg/flags/022-syria.svg') : asset('dashboard/assets/media/svg/flags/226-united-states.svg')}}" alt="" />
+														<img src="{{(app()->getLocale() == 'ar') ? asset('dashboard/assets/media/svg/flags/020-iraq.svg') : asset('dashboard/assets/media/svg/flags/226-united-states.svg')}}" alt="" />
 													</span>
                                     <span class="navi-text">{{ $properties['native'] }}</span>
                                 </a>

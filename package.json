@@ -23,5 +23,9 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.7",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "datatables.net-bs4": "^1.11.3",
+        "datatables.net-buttons-bs4": "^2.0.1"
     }
 }
