@@ -74,7 +74,7 @@
                             {{--permissions--}}
                             <label for="password_confirmation">@lang('site.permissions') <span class="text-danger">*</span></label>
                             @php
-                                $models = ['users', 'categories', 'matches'];
+                                $models = ['users', 'categories', 'matches', 'settings', 'pages'];
                                 $maps = ['create', 'read', 'update', 'delete'];
                             @endphp
                             <div class="example-preview">

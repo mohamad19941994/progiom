@@ -21,6 +21,8 @@ return [
             'users' => 'c,r,u,d',
             'categories' => 'c,r,u,d',
             'matches' => 'c,r,u,d',
+            'settings' => 'c,r,u,d',
+            'pages' => 'c,r,u,d',
         ],
     ],
 

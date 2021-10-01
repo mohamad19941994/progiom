@@ -72,6 +72,7 @@
                             <tr>
                                 <th title="Field #1">ID</th>
                                 <th title="Field #2">@lang('site.name')</th>
+                                <th title="Field #2">@lang('site.url')</th>
                                 <th title="Field #3">@lang('site.actions')</th>
                             </tr>
                             </thead>
@@ -80,6 +81,7 @@
                                 <tr>
                                     <td>{{$match->id}}</td>
                                     <td>{{$match->name}}</td>
+                                    <td>{{$match->url}}</td>
                                     <td data-field="Actions" aria-label="null" class="datatable-cell">
                                         <span style="overflow: visible; position: relative; width: 130px;">
                                         <a href="{{ route('dashboard.matches.edit', $match->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>

@@ -10,12 +10,12 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('site.matches')</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('site.pages')</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item text-muted">
-                                <a href="{{route('dashboard.matches.index')}}" class="text-muted">@lang('site.matches')</a>
+                                <a href="{{route('dashboard.users.index')}}" class="text-muted">@lang('site.pages')</a>
                             </li>
                             <li class="breadcrumb-item text-muted">
                                 <a href="javascript:;" class="text-muted">@lang('site.edit')</a>
@@ -38,7 +38,7 @@
                 <div class="card card-custom">
                     <div class="card-header">
                         <h3 class="card-title">
-                            @lang('site.matches')
+                            @lang('site.policy')
                         </h3>
                         <div class="card-toolbar">
                             <div class="example-tools justify-content-center">
@@ -48,39 +48,20 @@
                         </div>
                     </div>
                     <!--begin::Form-->
-                    <form action="{{route('dashboard.matches.update', $match->id)}}" method="post">
-                        {{csrf_field()}}
-                        {{ method_field('put')}}
+                    <form action="{{ route('dashboard.pages.store') }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
+                        @include('dashboard.partials._sessions')
                         <div class="card-body">
-                            {{--category_id--}}
+                            {{--name--}}
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <label for="categories">@lang('site.categories')
-                                            <span class="text-danger">*</span></label>
-                                        <select name="category_id" class="form-control" id="categories">
-                                            <option value="0">@lang('site.all_categories')</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" {{ $match->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>@lang('site.name')<span class="text-danger">*</span></label>
-                                        <input name="name" type="text" class="form-control" value="{{ $match->name }}" placeholder="@lang('site.name')"/>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <label>@lang('site.url')<span class="text-danger">*</span></label>
-                                        <input name="url" type="text" class="form-control" value="{{ $match->url }}" placeholder="@lang('site.url')"/>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>@lang('site.start_time')<span class="text-danger">*</span></label>
-                                        <input name="start_time" type="datetime-local" class="form-control" value="{{$match->start_time}}"/>
-                                    </div>
-                                </div>
+                                <label>@lang('site.title')<span class="text-danger">*</span></label>
+                                <input name="policy_name" type="text" class="form-control" value="{{ $page[0]->policy_name }}" placeholder="@lang('site.title')"/>
+                            </div>
+                            {{--description--}}
+                            <div class="form-group">
+                                <label>@lang('site.description')</label>
+                                <textarea name="policy_description" class="form-control" id="mytextarea" rows="10" cols="10">{{$page[0]->policy_description}}</textarea>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -99,7 +80,8 @@
 @endsection
 
 @section('scripts')
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{asset('dashboard/assets/js/pages/crud/ktdatatable/base/html-table.js')}}"></script>
     <!--end::Page Scripts-->
+    <script src="https://cdn.tiny.cloud/1/qcr09xadljfdl3rae0j3nmcvr2i1cp414gjvk1reivd25avu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="{{ asset('dashboard/assets/plugins/tinymce/tiny.js') }}"></script>
 @endsection

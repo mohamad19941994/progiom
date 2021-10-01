@@ -48,10 +48,14 @@
                         </div>
                     </div>
                     <!--begin::Form-->
-                    <form action="{{ route('dashboard.matches.store') }}" method="post">
+                    <form method="post" id="dynamic_form">
                         @csrf
                         <div class="card-body">
-                            {{--category--}}
+                            <span id="result"></span>
+                            @if($errors->any())
+                                {{ implode('', $errors->all('<div>:message</div>')) }}
+                            @endif
+                            <!--category-->
                             <div class="form-group">
                                 <label for="categories">@lang('site.categories')
                                     <span class="text-danger">*</span></label>
@@ -62,57 +66,30 @@
                                     @endforeach
                                 </select>
                             </div>
-                            {{--name--}}
-                            <div class="form-group">
-                                <label>@lang('site.name')<span class="text-danger">*</span></label>
-                                <input name="name" type="text" class="form-control"  placeholder="@lang('site.name')"/>
-                            </div>
-                            {{--start_time--}}
+
+                            <!--start_time-->
                             <div class="form-group">
                                 <label>@lang('site.start_time')<span class="text-danger">*</span></label>
                                 <input name="start_time" type="datetime-local" class="form-control"  placeholder="@lang('site.start_time')"/>
                             </div>
-                            {{--url--}}
-                            <div class="form-group">
-                                <label>@lang('site.url')<span class="text-danger">*</span></label>
-                                <input name="url" type="text" class="form-control"  placeholder="@lang('site.url')"/>
-                            </div>
 
-                            <div id="kt_repeater_1">
-                                    <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label text-right">المباريات:</label>
-                                        <div data-repeater-list="" class="col-lg-10">
+                            <table class="table table-bordered table-striped" id="user_table">
+                                <thead>
+                                <tr>
+                                    <th width="35%">@lang('site.name')</th>
+                                    <th width="35%">@lang('site.url')</th>
+                                    <th width="5%">@lang('site.actions')</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                                            <div data-repeater-item="" class="form-group row align-items-center" style="">
-                                                <div class="col-md-3">
-                                                    <label>رابط:</label>
-                                                    <input type="text" name="first_name" class="form-control" placeholder="ادخل رابط المباراة">
-                                                    <div class="d-md-none mb-2"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>الاسم:</label>
-                                                    <input type="text" name="last_name" class="form-control" placeholder="ادخل اسم المباراة">
-                                                    <div class="d-md-none mb-2"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger">
-                                                        <i class="la la-trash-o"></i>حذف</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                    <label class="col-lg-2 col-form-label text-right"></label>
-                                    <div class="col-lg-4">
-                                        <a href="javascript:;" onclick="i++" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                                            <i class="la la-plus"></i>إضافة مباراة جديدة</a>
-                                    </div>
-                                </div>
-                            </div>
+                                </tbody>
+
+                            </table>
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary mr-2">@lang('site.submit')</button>
+                            <button type="submit" id="save" class="btn btn-primary mr-2">@lang('site.submit')</button>
                             <button type="reset" class="btn btn-secondary">@lang('site.reset')</button>
                         </div>
                     </form>
@@ -132,9 +109,75 @@
     <!--end::Page Scripts-->
 
     <script>
-        var i = 1;
+        $(document).ready(function(){
 
-        console.log(i);
+            var count = 1;
+
+            dynamic_field(count);
+
+            function dynamic_field(number)
+            {
+                html = '<tr>';
+                html += '<td><input type="text" name="name[]" class="form-control" /></td>';
+                html += '<td><input type="text" name="url[]" class="form-control" /></td>';
+                if(number > 1)
+                {
+                    html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">حذف</button></td></tr>';
+                    $('tbody').append(html);
+                }
+                else
+                {
+                    html += '<td><button type="button" name="add" id="add" class="btn btn-success">إضافة</button></td></tr>';
+                    $('tbody').html(html);
+                }
+            }
+
+            $(document).on('click', '#add', function(){
+                count++;
+                dynamic_field(count);
+            });
+
+            $(document).on('click', '.remove', function(){
+                count--;
+                $(this).closest("tr").remove();
+            });
+
+            $('#dynamic_form').on('submit', function(event){
+                event.preventDefault();
+                $.ajax({
+                    url:'{{ route("dynamic-field.insert") }}',
+                    method:'post',
+                    data:$(this).serialize(),
+                    dataType:'json',
+                    beforeSend:function(){
+                        $('#save').attr('disabled','disabled');
+                    },
+                    success:function(data)
+                    {
+                        console.log(data);
+                        if(data.error)
+                        {
+                            var error_html = '';
+                            for(var count = 0; count < data.error.length; count++)
+                            {
+                                error_html += '<p>'+data.error[count]+'</p>';
+                            }
+                            $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                        }
+                        else
+                        {
+                            dynamic_field(1);
+                            $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+                        }
+                        $('#save').attr('disabled', false);
+                    },
+
+
+
+                })
+            });
+
+        });
     </script>
 
 @endsection
